@@ -1,0 +1,144 @@
+Q1. What is an Exception in python? Write the difference between Exceptions and syntax error
+
+ANS. EXCEPTION-- An exception is an event, which occurs during the execution of a program that disrupts the normal flow of the program's instructions. 
+In general, when a Python script encounters a situation that it cannot cope with,
+it raises an exception. An exception is a Python object that represents an error.
+
+Errors cannot be handled, while Python exceptions can be handled at the run time.
+An error can be a syntax (parsing) error, while there can be many types of exceptions that could occur during the execution and are not unconditionally inoperable.
+
+
+
+  Q2. What happens when an exception is not handled? Explain with an example  
+  
+  ANS.What happens if an exception is not caught? If an exception is not caught (with a catch block), the runtime system will abort the program (i.e. crash)
+  and an exception message will print to the console.
+    try :
+    open('test.txt', 'r')
+except Exception as e:
+    print('this is my first exception handling' ,e)
+    
+this is my first exception handling [Errno 2] No such file or directory: 'test.txt'
+  
+  
+  
+  
+Q3. Which Python statements are used to catch and handle exceptions? Explain with an example 
+
+ANS. The try block contains the code that might raise an exception. If an exception is raised, the code in the except block is executed. The ExceptionType argument specifies the type of exception that should be caught and handled. If no exception type is specified, the Exception class will be caught and handled.
+
+Here's an example of using the try and except statements to handle a ZeroDivisionError exception:
+
+python
+Copy code
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+In this example, the code in the try block attempts to divide 10 by 0, which will raise a ZeroDivisionError exception. The except block will catch the exception and print the message "Cannot divide by zero".
+
+You can also catch multiple exceptions in the same except block by specifying multiple exception types:
+
+python
+Copy code
+try:
+    # code to be executed
+except (ExceptionType1, ExceptionType2):
+    # code to be executed if an exception is raised
+Or you can catch any exception by using the following syntax:
+
+vbnet
+Copy code
+try:
+    # code to be executed
+except:
+    # code to be executed if an exception is raised
+Note that using a bare except block is not recommended, as it will catch all exceptions, even those that might indicate serious problems with your code. It's better to catch only the exceptions that you expect to be raised and handle them appropriately.
+
+
+
+
+
+
+
+
+ Q4. Explain with an example:
+ 
+Try and else
+ finally 
+  raise 
+  
+ 1. Try and else-
+ try :
+    f= open('test.txt', 'w')
+except Exception as e:
+    print('this is my first exception handling' ,e)
+else :
+    
+    f.write('execute if try method is executed')
+ 
+2.finaly--
+example1-
+try :
+    f= open('test.txt', 'w')
+except Exception as e:
+    print('this is my first exception handling' ,e)
+else :
+    
+    f.write('execute if try method is executed')
+finally:
+    print ('this is ecucuted because this is finally')
+
+example2
+  try :
+    f= open('test2.txt', 'r')
+except Exception as e:
+    print('this is my first exception handling' ,e)
+else :
+    
+    f.write('execute if try method is executed')
+finally:
+    print ('this is ecucuted because this is finally')
+output::this is my first exception handling [Errno 2] No such file or directory: 'test2.txt'
+this is ecucuted because this is finally
+  
+Q5. What are Custom Exceptions in python? Why do we need Custom Exceptions? Explain with an example 
+ANS. Custom exceptions in Python are user-defined exceptions that you can create to handle specific conditions in your code. In Python,
+you can create a custom exception by defining a new class that inherits from the Exception class. This allows you to create exceptions that have custom error messages, status codes, or any other relevant information.
+
+The main reason for creating custom exceptions is to make your code more expressive and easier to understand. When you use custom exceptions,
+you can raise exceptions that clearly indicate the error conditions that have occurred in your code, which makes it easier to diagnose and fix bugs. 
+Custom exceptions also allow you to handle specific error conditions in a more controlled and structured way, which makes your code more robust and less prone to unexpected errors.
+ 
+
+class InvalidDataFormatException(Exception):
+    def __init__(self, message):
+        self.message = message
+
+def process_data(data):
+    if not isinstance(data, dict):
+        raise InvalidDataFormatException("Data must be in dictionary format")
+    # process the data
+
+
+
+ Q6. Create a custom exception class. Use this class to handle exceptions. 
+ ANS. class CustomException(Exception):
+    def __init__(self, message):
+        self.message = message
+
+def divide(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        raise CustomException("Cannot divide by zero")
+    return result
+
+try:
+    result = divide(10, 0)
+    print(result)
+except CustomException as e:
+    print(e.message)
+
+ 
+ 
